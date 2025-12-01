@@ -56,7 +56,11 @@ export class ClassificaService {
     if (this.isBrowser()) {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.players));
 
-      this.http.post('https://classifica-two.vercel.app/api/data', this.players).subscribe((response) => console.log(response));
+      console.log(JSON.stringify(this.players));
+
+      this.http
+        .post('https://classifica-two.vercel.app/api/data', this.players)
+        .subscribe((response) => console.log(response));
     }
   }
 
