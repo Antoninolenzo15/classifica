@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Player } from '../../type/players';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClassificaService {
   private readonly STORAGE_KEY = 'classifica_players';
@@ -13,7 +14,7 @@ export class ClassificaService {
   private playersSubject = new BehaviorSubject<Player[]>([]);
   public players$ = this.playersSubject.asObservable();
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.loadFromStorage();
   }
 
@@ -44,7 +45,7 @@ export class ClassificaService {
         { id: 10, position: 10, name: 'MATTIA BRUNO', points: 0 },
         { id: 11, position: 11, name: 'MANUEL IUCULANO', points: 0 },
         { id: 12, position: 12, name: 'CALOGERO CONTENTA', points: 0 },
-        { id: 13, position: 13, name: 'MARCO BRUNO', points: 0 }
+        { id: 13, position: 13, name: 'MARCO BRUNO', points: 0 },
       ];
     }
 
@@ -54,6 +55,8 @@ export class ClassificaService {
   private saveToStorage() {
     if (this.isBrowser()) {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.players));
+
+      this.http.post('https://classifica-two.vercel.app/api/data', this.players).subscribe((response) => console.log(response));
     }
   }
 
@@ -62,18 +65,18 @@ export class ClassificaService {
   }
 
   addPlayer(name: string): void {
-    const newId = Math.max(...this.players.map(p => p.id)) + 1;
+    const newId = Math.max(...this.players.map((p) => p.id)) + 1;
     this.players.push({ id: newId, position: 0, name: name.toUpperCase(), points: 0 });
     this.updateRanking();
   }
 
   removePlayer(id: number): void {
-    this.players = this.players.filter(p => p.id !== id);
+    this.players = this.players.filter((p) => p.id !== id);
     this.updateRanking();
   }
 
   addPoints(id: number, points: number): void {
-    const player = this.players.find(p => p.id === id);
+    const player = this.players.find((p) => p.id === id);
     if (player) {
       player.points += points;
       this.updateRanking();
@@ -81,7 +84,7 @@ export class ClassificaService {
   }
 
   removePoints(id: number, points: number): void {
-    const player = this.players.find(p => p.id === id);
+    const player = this.players.find((p) => p.id === id);
     if (player) {
       player.points = Math.max(0, player.points - points);
       this.updateRanking();
