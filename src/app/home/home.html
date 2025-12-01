@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<div class="classifica-container">
+  <!-- Header con pulsanti -->
+  <div class="header">
+    <div class="logo">
+      <h1>"Paolo Gullà"</h1>
+      <h2>Lions <span>CLUB</span></h2>
+      <p>Since 1999</p>
+    </div>
+    <h1 class="title">CLASSIFICA</h1>
+
+    <div class="header-buttons">
+      <button *ngIf="!isAdmin" (click)="goToLogin()" class="btn-login">Admin Login</button>
+      <button *ngIf="isAdmin" (click)="logout()" class="btn-logout">Logout Admin</button>
+    </div>
+  </div>
+
+  <!-- Pannello Admin -->
+  <div *ngIf="isAdmin" class="admin-panel">
+    <h3>🔧 Pannello Amministratore</h3>
+    
+    <div class="admin-grid">
+
+      <!-- Aggiungi Giocatore -->
+      <div class="admin-card">
+        <h4>➕ Aggiungi Giocatore</h4>
+        <input type="text" [(ngModel)]="newPlayerName" placeholder="Nome giocatore" class="form-control" />
+        <button (click)="addPlayer()" class="btn btn-success">Aggiungi</button>
+      </div>
+
+      <!-- Aggiungi Punti -->
+      <div class="admin-card">
+        <h4>⬆️ Aggiungi Punti</h4>
+
+        <select [(ngModel)]="selectedPlayerToAddPointsId" class="form-control">
+          <option [ngValue]="null">Seleziona giocatore</option>
+          <option *ngFor="let player of players" [ngValue]="player.id">
+            {{ player.name }} ({{ player.points }} pt)
+          </option>
+        </select>
+
+        <input type="number" [(ngModel)]="pointsToAdd" placeholder="Punti" class="form-control" min="1" />
+        <button (click)="addPoints()" class="btn btn-primary">Aggiungi Punti</button>
+      </div>
+
+      <!-- Rimuovi Punti -->
+      <div class="admin-card">
+        <h4>⬇️ Rimuovi Punti</h4>
+
+        <select [(ngModel)]="selectedPlayerToRemovePointsId" class="form-control">
+          <option [ngValue]="null">Seleziona giocatore</option>
+          <option *ngFor="let player of players" [ngValue]="player.id">
+            {{ player.name }} ({{ player.points }} pt)
+          </option>
+        </select>
+
+        <input type="number" [(ngModel)]="pointsToRemove" placeholder="Punti" class="form-control" min="1" />
+        <button (click)="removePoints()" class="btn btn-warning">Rimuovi Punti</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Classifica -->
+  <div class="classifica">
+    <div *ngFor="let player of players" class="player-row">
+      <div class="player-info">
+        <span class="position">{{ player.position }}</span>
+        <span class="name">{{ player.name }}</span>
+      </div>
+      <div class="player-actions">
+        <span class="points">{{ player.points }}</span>
+        <button *ngIf="isAdmin" (click)="removePlayer(player.id)" class="btn-delete" title="Elimina giocatore">🗑️</button>
+      </div>
+    </div>
+  </div>
+
+</div>

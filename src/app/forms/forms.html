@@ -1,0 +1,34 @@
+<form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label>Username</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      formControlName="name" 
+      placeholder="Inserisci admin" 
+    />
+    <span>
+      {{ reactiveForm.get('name')?.invalid ? '❌' : '✅' }}
+    </span>
+  </div>
+
+  <hr />
+
+  <div class="form-group">
+    <label>Password</label>
+    <input 
+      type="password" 
+      class="form-control" 
+      formControlName="password" 
+      placeholder="Inserisci admin123" 
+    />
+    <span>
+      {{ reactiveForm.get('password')?.invalid ? '❌' : '✅' }}
+    </span>
+  </div>
+
+  <hr />
+
+  <button type="submit" class="btn btn-primary">Login</button>
+  <button type="button" class="btn btn-primary" (click)="onReset()">Reset</button>
+</form>
