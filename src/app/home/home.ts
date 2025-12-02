@@ -6,12 +6,12 @@ import { Subscription } from 'rxjs';
 import { Player } from '../../type/players';
 import { AuthService } from '../services/auth.service';
 import { ClassificaService } from '../services/classifica.service';
-import { Navbar } from '../navbar/navbar';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, Navbar],
+  imports: [CommonModule, FormsModule],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
 })
