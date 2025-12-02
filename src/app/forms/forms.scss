@@ -1,0 +1,97 @@
+// Variables
+$primary-color: #4a90e2;
+$error-color: #e74c3c;
+$success-color: #2ecc71;
+$input-bg: #f9f9f9;
+$input-border: #ccc;
+$border-radius: 6px;
+$transition-speed: 0.3s;
+
+// Form container
+form {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px 25px;
+  background-color: #fff;
+  border-radius: $border-radius;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .form-group {
+    margin-bottom: 20px;
+    position: relative;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px 12px;
+      font-size: 16px;
+      border: 1px solid $input-border;
+      border-radius: $border-radius;
+      background-color: $input-bg;
+      transition: border $transition-speed, box-shadow $transition-speed;
+
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 5px rgba($primary-color, 0.5);
+        outline: none;
+      }
+    }
+
+    span {
+      position: absolute;
+      top: 36px;
+      font-size: 18px;
+      pointer-events: none;
+      transition: color $transition-speed;
+
+      // Valid / invalid colors
+      &::before {
+        content: '';
+      }
+
+      &.valid {
+        color: $success-color;
+      }
+
+      &.invalid {
+        color: $error-color;
+      }
+    }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: $border-radius;
+    border: none;
+    cursor: pointer;
+    transition: background-color $transition-speed;
+
+    &.btn-primary {
+      background-color: $primary-color;
+      color: #fff;
+      margin-right: 10px;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

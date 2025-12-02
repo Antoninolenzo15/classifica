@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+
 
 <div class="classifica-container">
   <!-- Header con pulsanti -->
@@ -11,7 +11,6 @@
     <h1 class="title">CLASSIFICA</h1>
 
     <div class="header-buttons">
-      <button *ngIf="!isAdmin" (click)="goToLogin()" class="btn-login">Admin Login</button>
       <button *ngIf="isAdmin" (click)="logout()" class="btn-logout">Logout Admin</button>
     </div>
   </div>
