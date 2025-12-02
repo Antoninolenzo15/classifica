@@ -5,7 +5,6 @@
       type="text" 
       class="form-control" 
       formControlName="name" 
-      placeholder="Inserisci admin" 
     />
     <span>
       {{ reactiveForm.get('name')?.invalid ? '❌' : '✅' }}
@@ -20,7 +19,6 @@
       type="password" 
       class="form-control" 
       formControlName="password" 
-      placeholder="Inserisci admin123" 
     />
     <span>
       {{ reactiveForm.get('password')?.invalid ? '❌' : '✅' }}
